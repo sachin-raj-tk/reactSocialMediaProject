@@ -1,7 +1,7 @@
 import React from 'react'
 import './ProfileCard.css'
-import Cover from '../../img/cover.jpg'
-import Profile from '../../img/profileImg.jpg'
+import Cover from '../../img/cover1.jpg'
+import Profile from '../../img/profileImg1.jpg'
 const ProfileCard = () => {
     const ProfilePage = true;
   return (
