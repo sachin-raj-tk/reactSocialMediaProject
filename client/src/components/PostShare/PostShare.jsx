@@ -8,18 +8,27 @@ import { UilSchedule } from '@iconscout/react-unicons'
 import { UilTimes } from '@iconscout/react-unicons'
 import { useState } from 'react'
 import { useRef } from 'react'
+import { useSelector } from 'react-redux'
 
 const PostShare = () => {
     const [image,setImage] = useState(null)
     const imageRef = useRef()
+    const {user} = useSelector((state)=>state.authReducer.authData)
     const onImageChange = (event)=>{
         if(event.target.files && event.target.files[0]){
             let img = event.target.files[0]
-            setImage({
-                image: URL.createObjectURL(img),
-            });
+            setImage(img);
         }
     };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const newPost = {
+            userId: user._id
+        }
+    }
+
     return (
         <div className="PostShare">
             <img src={ProfileImage} alt="" />
@@ -50,7 +59,7 @@ const PostShare = () => {
                 {image && (
                     <div className="previewImage">
                         <UilTimes onClick={()=>setImage(null)} />
-                        <img src={image.image} alt="" />
+                        <img src={URL.createObjectURL(image)} alt="" />
                     </div>
                 )}
             </div>
