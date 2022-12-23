@@ -6,6 +6,7 @@ import like from '../../img/like.png'
 import notlike from '../../img/notlike.png'
 
 const Post = ({data}) => {
+   
   return (
    <div className="Post">
      <img src={data.img} alt="" />
