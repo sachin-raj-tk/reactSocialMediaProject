@@ -5,6 +5,7 @@ import LogoSearch from '../LogoSearch/LogoSearch'
 import '../profileSide/ProfileSid.css'
 
 const ProfileLeft = () => {
+  
   return (
    <div className="ProfileSid">
     <LogoSearch/>

@@ -2,32 +2,33 @@ import React from 'react'
 import './ProfileCard.css'
 import {Link} from 'react-router-dom'
 import { useSelector } from 'react-redux'
-const ProfileCard = ({location}) => {
+
+
+const ProfileCard = ({location,person}) => {
     const {user} = useSelector((state)=>state.authReducer.authData)
     const posts = useSelector((state)=>state.postReducer.posts)
     const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
-
-    
+    console.log(person,'profilec');
   return (
     <div className="ProfileCard">
         <div className="ProfileImages">
-            <img src={user.coverPicture? serverPublic + user.coverPicture : serverPublic +  "cover.jpg"} alt="" />
-            <img src={user.profilePicture? serverPublic + user.profilePicture : serverPublic + "defaultProfileImg.jpg"} alt="" />
+            <img src={person?.coverPicture? serverPublic+ person.coverPicture: !person ? serverPublic + user.coverPicture : serverPublic +  "cover.jpg"} alt="" />
+            <img src={person?.profilePicture?serverPublic+ person.profilePicture: !person? serverPublic + user.profilePicture : serverPublic + "defaultProfileImg.jpg"} alt="" />
         </div>
         <div className="ProfileName">
-            <span>{user.firstname} {user.lastname}</span>
-            <span>{user.worksAt ? user.worksAt : "Write about yourself"}</span>
+            <span>{person?.firstname?person.firstname:!person? user.firstname:'firstname'} {person?.lastname?person.lastname:!person? user.lastname:''}</span>
+            <span>{person?.worksAt? person.worksAt :!person? user.worksAt : "Write about yourself"}</span>
         </div>
         <div className="followStatus">
             <hr />
             <div>
                 <div className="follow">
-                    <span>{user.following.length}</span>
+                    <span>{person?.following?person.following.length:user.following.length}</span>
                     <span>Following</span>
                 </div>
                 <div className="vl"></div>
                 <div className="follow">
-                    <span>{user.followers.length}</span>
+                    <span>{person?.followers?person.followers.length:user.followers.length}</span>
                     <span>Followers</span>
                 </div>
 
@@ -38,7 +39,7 @@ const ProfileCard = ({location}) => {
 
                         </div>
                         <div className="follow">
-                            <span>{posts.filter((post)=>post.userId === user._id).length}</span>
+                            <span>{posts.filter((post)=>post.userId === person?._id).length}</span>
                             <span>Posts</span>
                         </div>
                         </>
