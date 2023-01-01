@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { getTimelinePosts } from '../../actions/postAction'
 import { followUser, getUser, unFollowUser } from '../../actions/userAction'
 
 const User = ({person}) => {
@@ -13,10 +14,12 @@ const User = ({person}) => {
        following?
        dispatch(unFollowUser(person._id,user)):
        dispatch(followUser(person._id,user))
+       dispatch(getTimelinePosts(user._id))
        setFollowing((prev)=>!prev)
     }
     const setUser = ()=>{
       dispatch(getUser(person._id))
+      
     }
   return (
     <div className="follower">
