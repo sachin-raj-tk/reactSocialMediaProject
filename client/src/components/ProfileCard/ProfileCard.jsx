@@ -1,13 +1,18 @@
 import React from 'react'
 import './ProfileCard.css'
 import {Link} from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { getUser } from '../../actions/userAction'
 
 
 const ProfileCard = ({location,person}) => {
     const {user} = useSelector((state)=>state.authReducer.authData)
     const posts = useSelector((state)=>state.postReducer.posts)
     const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
+    const dispatch = useDispatch()
+    const setUser=()=>{
+        dispatch(getUser(user._id))
+    }
     console.log(person,'profilec');
   return (
     <div className="ProfileCard">
@@ -49,7 +54,7 @@ const ProfileCard = ({location,person}) => {
             <hr />
         </div>
         {location==='profilePage' ? '' :<span>
-            <Link style={{textDecoration:"none", color : "inherit"}} to={`/profile/${user._id}`}>
+            <Link style={{textDecoration:"none", color : "inherit"}} to={`/profile/${user._id}`} onClick={setUser}>
             My Profile
             </Link>
         </span> }

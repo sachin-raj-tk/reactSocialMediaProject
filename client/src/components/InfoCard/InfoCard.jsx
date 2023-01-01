@@ -13,22 +13,22 @@ const InfoCard = () => {
     const dispatch = useDispatch()
     const params = useParams()
     const profileUserId = params.id
-    const [profileUser, setProfileUser] = useState({})
+    const profileUser = useSelector((state)=>state.userReducer.userData)
     const {user} = useSelector((state)=>state.authReducer.authData)
 
-    useEffect(()=>{
-        const fetchProfileUser = async()=> {
-            if(profileUserId === user._id){
-                setProfileUser(user)
+    // useEffect(()=>{
+    //     const fetchProfileUser = async()=> {
+    //         if(profileUserId === user._id){
+    //             setProfileUser(user)
                 
-            }else{
-                const profileUser = await UserApi.getUser(profileUserId)
-                setProfileUser(profileUser)
+    //         }else{
+    //             const profileUser = await UserApi.getUser(profileUserId)
+    //             setProfileUser(profileUser)
                 
-            } 
-        }
-        fetchProfileUser();
-    },[user])
+    //         } 
+    //     }
+    //     fetchProfileUser();
+    // },[user])
     const handleLogOut =() =>{
            dispatch(logOut())
     }
@@ -36,7 +36,7 @@ const InfoCard = () => {
      <div className="InfoCard">
         <div className="infoHead">
             <h4>Profile Info</h4>
-            {user._id ? (
+            {params.id === user._id ? (
             <div>
               <UilPen width='2rem' height='1.2rem' onClick={()=>setModalOpened(true)} />
             <ProfileModal modalOpened = {modalOpened} setModalOpened={setModalOpened} data ={user} />
@@ -62,7 +62,10 @@ const InfoCard = () => {
             </span>
             <span> {profileUser.worksAt}</span>
         </div>
+        {params.id === user._id &&
+        
         <button className="button logout-button" onClick={handleLogOut}>Logout</button>
+        }
      </div>
     )
 }
