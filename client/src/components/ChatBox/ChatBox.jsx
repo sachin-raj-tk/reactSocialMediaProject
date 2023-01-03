@@ -1,15 +1,22 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useEffect } from 'react'
 import { addMessage, getMessages } from '../../api/MessageRequest'
 import { getUser } from '../../api/UserRequest'
 import './ChatBox.css'
 import {format} from "timeago.js"
 import InputEmoji from 'react-input-emoji'
-const ChatBox = ({ chat, currentUser }) => {
+const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) => {
     const [userData, setUserData] = useState(null)
     const [messages,setMessages] = useState([])
     const [newMessage,setNewMessage] = useState("")
+    const scroll = useRef()
     
+    useEffect(()=>{
+        if(receiveMessage !== null && receiveMessage.chatId === chat._id){
+            setMessages([...messages,receiveMessage])
+        }
+    },[receiveMessage])
+
     // fetching data for header
     useEffect(() => {
         const userId = chat?.members?.find((id) => id !== currentUser)
@@ -63,7 +70,17 @@ const ChatBox = ({ chat, currentUser }) => {
         } catch (error) {
             
         }
+
+        //send message to socket server
+        const receiverId = chat.members.find((id)=>id !== currentUser)
+        setSendMessage({...message,receiverId})
+
     }
+
+    //Always scroll to last message
+    useEffect(()=>{
+        scroll.current?.scrollIntoView({behavior:"smooth"})
+    },[messages])
 
     return (
         <>
@@ -87,7 +104,7 @@ const ChatBox = ({ chat, currentUser }) => {
                     <div className="chat-body">
                          {messages.map((message)=>(
                             <>
-                             <div className={message.senderId === currentUser? "message own": "message"}>
+                             <div ref={scroll} className={message.senderId === currentUser? "message own": "message"}>
                               <span>{message.text}</span>
                               <span>{format(message.createdAt)}</span>
                               </div>
