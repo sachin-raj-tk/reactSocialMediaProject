@@ -24,6 +24,17 @@ const ChatBox = ({ chat, currentUser }) => {
 
     }, [chat, currentUser])
 
+    //fetching data for messages
+    useEffect(()=>{
+        const fetchMessages = async () => {
+            try {
+                //const {data} = await getMessages
+            } catch (error) {
+                
+            }
+        }
+    })
+
     return (
         <>
             <div className="ChatBox-container">
