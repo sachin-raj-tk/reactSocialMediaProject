@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const MessageSchema = new mongoose.Schema({
-    ChatId:{
+    chatId:{
         type: String
     },
     senderId:{

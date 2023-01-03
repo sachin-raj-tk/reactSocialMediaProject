@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
-import { getMessages } from '../../api/MessageRequest'
+import { addMessage, getMessages } from '../../api/MessageRequest'
 import { getUser } from '../../api/UserRequest'
 import './ChatBox.css'
 import {format} from "timeago.js"
+import InputEmoji from 'react-input-emoji'
 const ChatBox = ({ chat, currentUser }) => {
     const [userData, setUserData] = useState(null)
     const [messages,setMessages] = useState([])
-
+    const [newMessage,setNewMessage] = useState("")
+    
     // fetching data for header
     useEffect(() => {
         const userId = chat?.members?.find((id) => id !== currentUser)
@@ -38,10 +40,35 @@ const ChatBox = ({ chat, currentUser }) => {
         }
         if(chat !== null) fetchMessages();
     },[chat])
+    
+    const handleChange = (newMessage) =>{
+        setNewMessage(newMessage)
+    }
+
+    const handleSend = async(e) =>{
+        e.preventDefault();
+        console.log(chat._id);
+        const message = {
+            senderId : currentUser,
+            text : newMessage,
+            chatId : chat._id
+        }
+
+        //send message to database
+        try {
+            const {data} = await addMessage(message);
+            setMessages([...messages,data])
+            setNewMessage("")
+
+        } catch (error) {
+            
+        }
+    }
 
     return (
         <>
             <div className="ChatBox-container">
+                {chat?( 
                 <>
                     <div className="chat-header">
                         <div className="follower">
@@ -70,8 +97,13 @@ const ChatBox = ({ chat, currentUser }) => {
                     {/* chat sender */}
                     <div className="chat-sender">
                         <div>+</div>
+                        <InputEmoji value={newMessage} onChange ={handleChange}/>
+                        <div className="send-button button" onClick={handleSend}>Send</div>
                     </div>
                 </>
+                ):(
+                    <span className="chatbox-empty-message">Tap on a chat to start conversation</span>
+                )}
             </div>
         </>
     )
