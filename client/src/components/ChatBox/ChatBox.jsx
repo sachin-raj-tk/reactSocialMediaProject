@@ -67,6 +67,10 @@ const ChatBox = ({ chat, currentUser }) => {
                             </>
                          ))}
                     </div>
+                    {/* chat sender */}
+                    <div className="chat-sender">
+                        <div>+</div>
+                    </div>
                 </>
             </div>
         </>
