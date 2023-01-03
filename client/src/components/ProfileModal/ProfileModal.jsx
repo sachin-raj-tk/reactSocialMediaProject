@@ -2,7 +2,7 @@ import { Modal, useMantineTheme } from '@mantine/core';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { updateUser } from '../../actions/userAction';
+import { getUser, updateUser } from '../../actions/userAction';
 import { uploadImage } from '../../api/UploadRequest';
 
 function ProfileModal({modalOpened,setModalOpened, data}) {
@@ -55,6 +55,7 @@ function ProfileModal({modalOpened,setModalOpened, data}) {
   }
   dispatch(updateUser(param.id,UserData))
   setModalOpened(false)
+  dispatch(getUser(user._id))
   }
   return (
     <Modal

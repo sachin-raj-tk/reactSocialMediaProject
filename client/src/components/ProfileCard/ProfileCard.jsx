@@ -17,12 +17,12 @@ const ProfileCard = ({location,person}) => {
   return (
     <div className="ProfileCard">
         <div className="ProfileImages">
-            <img src={person?.coverPicture? serverPublic+ person.coverPicture: !person ? serverPublic + user.coverPicture : serverPublic +  "cover.jpg"} alt="" />
-            <img src={person?.profilePicture?serverPublic+ person.profilePicture: !person? serverPublic + user.profilePicture : serverPublic + "defaultProfileImg.jpg"} alt="" />
+            <img src={person?.coverPicture? serverPublic+ person.coverPicture: !person && user.coverPicture? serverPublic + user.coverPicture : serverPublic +  "cover.jpg"} alt="" />
+            <img src={person?.profilePicture?serverPublic+ person.profilePicture: !person && user.profilePicture? serverPublic + user.profilePicture : serverPublic + "defaultProfileImg.jpg"} alt="" />
         </div>
         <div className="ProfileName">
-            <span>{person?.firstname?person.firstname:!person? user.firstname:'firstname'} {person?.lastname?person.lastname:!person? user.lastname:''}</span>
-            <span>{person?.worksAt? person.worksAt :!person? user.worksAt : "Write about yourself"}</span>
+            <span>{person?.firstname?person.firstname:!person && user.firstname? user.firstname:'firstname'} {person?.lastname?person.lastname:!person && user.lastname? user.lastname:''}</span>
+            <span>{person?.worksAt? person.worksAt :!person && user.worksAt? user.worksAt : "Write about yourself"}</span>
         </div>
         <div className="followStatus">
             <hr />
