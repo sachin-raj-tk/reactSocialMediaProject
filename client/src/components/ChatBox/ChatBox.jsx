@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
+import { getMessages } from '../../api/MessageRequest'
 import { getUser } from '../../api/UserRequest'
 import './ChatBox.css'
-
+import {format} from "timeago.js"
 const ChatBox = ({ chat, currentUser }) => {
     const [userData, setUserData] = useState(null)
     const [messages,setMessages] = useState([])
@@ -14,7 +15,7 @@ const ChatBox = ({ chat, currentUser }) => {
             try {
                 const { data } = await getUser(userId)
                 setUserData(data)
-                console.log(data)
+                
             } catch (error) {
                 console.log(error);
             }
@@ -28,12 +29,15 @@ const ChatBox = ({ chat, currentUser }) => {
     useEffect(()=>{
         const fetchMessages = async () => {
             try {
-                //const {data} = await getMessages
+                const {data} = await getMessages(chat._id)
+                console.log(data);
+                setMessages(data);
             } catch (error) {
-                
+                console.log(error)
             }
         }
-    })
+        if(chat !== null) fetchMessages();
+    },[chat])
 
     return (
         <>
@@ -54,7 +58,14 @@ const ChatBox = ({ chat, currentUser }) => {
                     </div>
                     {/* chatbox messages */}
                     <div className="chat-body">
-
+                         {messages.map((message)=>(
+                            <>
+                             <div className={message.senderId === currentUser? "message own": "message"}>
+                              <span>{message.text}</span>
+                              <span>{format(message.createdAt)}</span>
+                              </div>
+                            </>
+                         ))}
                     </div>
                 </>
             </div>
