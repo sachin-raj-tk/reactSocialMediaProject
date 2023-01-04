@@ -19,3 +19,19 @@
     align-items: flex-start;
     gap: 1.5rem;
 }
+
+.addComment{
+    display: flex;
+    flex-direction: column;
+}
+
+.InpEmo{
+    width: 70px !important;
+}
+
+.commentBtn{
+    align-self: flex-end;
+    height: 30px;
+    width: 60px;
+    margin: 10px 45px 0 0;
+}

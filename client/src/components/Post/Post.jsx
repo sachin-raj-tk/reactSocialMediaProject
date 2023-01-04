@@ -11,6 +11,7 @@ import InputEmoji from 'react-input-emoji'
 import { addComment } from '../../actions/postAction'
 
 
+
 const Post = ({data}) => {
    console.log(data.comments)
    const dispatch = useDispatch()
@@ -60,7 +61,8 @@ const Post = ({data}) => {
         <span><b>{data.name}</b> </span>
         <span>{data.desc}</span>
      </div>
-     {
+     
+     {open &&
       data.comments?.map((com)=>{
          console.log(com);
          return (
@@ -73,10 +75,10 @@ const Post = ({data}) => {
      }
      
      {open &&
-     <div >
-        <span><b>username</b></span>
-        <InputEmoji value={commentString}  onChange={handleCommentChange} />
-        <button className="button" onClick={handleSubmit}>Post</button>
+     <div className='addComment' >
+        {/* <span><b>username</b></span> */}
+        <InputEmoji className="InpEmo" value={commentString}  onChange={handleCommentChange} />
+        <button  className="button commentBtn" onClick={handleSubmit}>Post</button>
      </div>
      }
    </div>
