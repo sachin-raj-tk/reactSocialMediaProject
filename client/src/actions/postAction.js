@@ -12,3 +12,18 @@ export const getTimelinePosts = (id) => async(dispatch)=>{
         console.log(error);
     }
 }
+
+
+export const addComment=(id,comment) => async(dispatch)=>{
+    dispatch({type:"COMMENT_START"})
+    console.log(id,comment,'addcomment postaction');
+    try {
+        console.log('ethiyo');
+        dispatch({type:"COMMENT_SUCCESS", data:comment,id:id})
+        await PostApi.addComment(id,comment);
+        //console.log(data,'posta action ane');
+    } catch (error) {
+        dispatch({type:"COMMENT_FAIL"})
+        console.log(error)        
+    }
+}

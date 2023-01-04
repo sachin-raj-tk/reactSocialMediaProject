@@ -120,3 +120,15 @@ export const getTimelinePosts = async(req,res)=>{
         res.status(500).json(error)
     }
 }
+
+
+// add a comment
+
+export const commentPost = async(req,res) =>{
+    const comment = req.body;
+    console.log(req.params.id);
+    console.log(comment);
+    const post = await PostModel.findById(req.params.id)
+    const commentData = await post.updateOne({$push:{comments:comment}})
+    console.log(commentData);
+}
