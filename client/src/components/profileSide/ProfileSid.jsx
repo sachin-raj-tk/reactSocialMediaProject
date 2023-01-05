@@ -9,7 +9,7 @@ const ProfileSid = () => {
     <div className="ProfileSid">
         <LogoSearch/>
         <ProfileCard location="homepage"/>
-        <FollowersCard/>
+        <FollowersCard locality="ProfileSid" />
     </div>
     )
 }

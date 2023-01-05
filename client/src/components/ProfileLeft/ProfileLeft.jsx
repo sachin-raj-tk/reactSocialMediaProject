@@ -10,7 +10,7 @@ const ProfileLeft = () => {
    <div className="ProfileSid">
     <LogoSearch/>
     <InfoCard/>
-    <FollowersCard/>
+    <FollowersCard locality="ProfileSid"/>
    </div>
     )
 }

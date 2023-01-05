@@ -7,6 +7,7 @@ import Comment from '../../img/comment.png'
 import { UilSetting } from '@iconscout/react-unicons'
 import TrendCard from '../TrendCard/TrendCard'
 import ShareModal from '../ShareModal/ShareModal'
+import FollowersCard from '../FollowersCard/FollowersCard'
 const RightSide = () => {
   const [modalOpened, setModalOpened] = useState(false)
 
@@ -27,7 +28,7 @@ const RightSide = () => {
         Share
       </button>
       <ShareModal modalOpened={modalOpened} setModalOpened={setModalOpened} />
-
+      <FollowersCard locality="hello" />
     </div>
   )
 }
