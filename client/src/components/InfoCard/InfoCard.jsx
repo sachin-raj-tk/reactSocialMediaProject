@@ -4,7 +4,7 @@ import {UilPen} from '@iconscout/react-unicons'
 import { useState } from 'react'
 import ProfileModal from '../ProfileModal/ProfileModal'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import * as UserApi from '../../api/UserRequest.js'
 import { logOut } from '../../actions/AuthAction'
@@ -62,10 +62,12 @@ const InfoCard = () => {
             </span>
             <span> {profileUser.worksAt}</span>
         </div>
-        {params.id === user._id &&
+        {/* {params.id === user._id &&
         
+         
         <button className="button logout-button" onClick={handleLogOut}>Logout</button>
-        }
+        
+        } */}
      </div>
     )
 }

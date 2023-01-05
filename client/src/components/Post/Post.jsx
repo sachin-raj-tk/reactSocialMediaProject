@@ -4,6 +4,7 @@ import comment from '../../img/comment.png'
 import share from '../../img/share.png'
 import like from '../../img/like.png'
 import notlike from '../../img/notlike.png'
+import deletButton from '../../img/deleteButton.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
 import { getTimelinePosts, likePost } from '../../api/PostRequest'
@@ -55,6 +56,7 @@ const Post = ({data}) => {
         <img src={liked?like:notlike} alt="" style={{cursor:"pointer"}} onClick={handleLike}/>
         <img src={comment} onClick={handleCommentBox} alt="" />
         <img src={share} alt="" />
+        <img src={deletButton} style={{width:"28px", height:"25px",display:"flex", alignSelf:'flex-end'}} alt=""/>
      </div>
      <span style={{color: "var(--gray)", fontSize:'12px'}}>{likes} likes</span>
      <div className="detail">
