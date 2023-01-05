@@ -46,6 +46,12 @@ const postReducer = (
       return{ ...state, ...([...state.posts.filter((post)=>post._id===action.id)])[0].comments.push(action.data),loading:false,error:false};
     case "COMMENT_FAIL":
       return{ ...state, loading:false, error:true};
+    case "DELETE_STARTED":
+      return{...state, loading:true, error:false}
+    case "DELETE_SUCCESS":
+      return{...state,posts:state.posts.filter((post)=>post._id !== action.id), loading:false,error: false}
+    case "DELETE_FAIL":
+      return{...state, loading:false, error:true}
     default:
       return state;
     }

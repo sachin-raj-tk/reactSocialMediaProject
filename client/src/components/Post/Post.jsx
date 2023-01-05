@@ -10,6 +10,7 @@ import { useState } from 'react'
 import { getTimelinePosts, likePost } from '../../api/PostRequest'
 import InputEmoji from 'react-input-emoji'
 import { addComment } from '../../actions/postAction'
+import PostDeleteModal from '../PostDeleteModal/PostDeleteModal'
 
 
 
@@ -19,6 +20,7 @@ const Post = ({data}) => {
    const {user} = useSelector((state)=>state.authReducer.authData)
    const [liked,setLiked] = useState(data.likes.includes(user._id))
    const [likes,setLikes] = useState(data.likes.length)
+   const [modalOpen,setModalOpen] = useState(false)
    const[open,setOpen] = useState(false)
    const [commentString,setCommentString] = useState("")
    console.log(data.comments,'hei post.jsx');
@@ -56,7 +58,12 @@ const Post = ({data}) => {
         <img src={liked?like:notlike} alt="" style={{cursor:"pointer"}} onClick={handleLike}/>
         <img src={comment} onClick={handleCommentBox} alt="" />
         <img src={share} alt="" />
-        <img src={deletButton} style={{width:"28px", height:"25px",display:"flex", alignSelf:'flex-end'}} alt=""/>
+        {data.userId === user._id &&
+        <>
+        <img src={deletButton} onClick={()=>setModalOpen((prev)=>!prev)}style={{width:"28px", height:"28px",display:"flex", alignSelf:'flex-end'}} alt=""/>
+          <PostDeleteModal modalOpen={modalOpen} setModalOpen={setModalOpen} id={data._id} currentUser={user._id}/>
+          </> 
+         }
      </div>
      <span style={{color: "var(--gray)", fontSize:'12px'}}>{likes} likes</span>
      <div className="detail">
