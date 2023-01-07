@@ -29,7 +29,7 @@ const FollowersCard = ({locality}) => {
         {persons.map((person,id)=>{
           if(person._id !== user._id && !user.following.includes(person._id) && !user.followers.includes(person._id)){
           return(
-            <User person = {person} key={id}/>
+            <User person = {person} key={id} list="people"/>
           )
         }
         })}
@@ -43,7 +43,7 @@ const FollowersCard = ({locality}) => {
         {persons.map((person,id)=>{
           if(user.following.includes(person._id)){
           return(
-            <User person = {person} key={id}/>
+            <User person = {person} key={id} list="followingPeople"/>
           )
         }
         })}
@@ -53,7 +53,7 @@ const FollowersCard = ({locality}) => {
         {persons.map((person,id)=>{
           if(user.followers.includes(person._id)){
           return(
-            <User person = {person} key={id}/>
+            <User person = {person} key={id} list="followersPeople"/>
           )
         }
         })}

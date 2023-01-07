@@ -10,12 +10,12 @@ import { useState } from 'react'
 import { getTimelinePosts, likePost } from '../../api/PostRequest'
 import InputEmoji from 'react-input-emoji'
 import { addComment } from '../../actions/postAction'
-import PostDeleteModal from '../PostDeleteModal/PostDeleteModal'
+import PostDeleteModal from '../PostDeleteModal/PostDeleteModal.jsx'
 
 
 
 const Post = ({data}) => {
-   console.log(data.comments)
+   
    const dispatch = useDispatch()
    const {user} = useSelector((state)=>state.authReducer.authData)
    const [liked,setLiked] = useState(data.likes.includes(user._id))
@@ -23,7 +23,7 @@ const Post = ({data}) => {
    const [modalOpen,setModalOpen] = useState(false)
    const[open,setOpen] = useState(false)
    const [commentString,setCommentString] = useState("")
-   console.log(data.comments,'hei post.jsx');
+   
    const handleLike=()=>{
       setLiked((prev)=>!prev)
       likePost(data._id,user._id)
@@ -36,7 +36,7 @@ const Post = ({data}) => {
    
    const handleCommentChange =(commentString) =>{
       setCommentString(commentString)
-      console.log(commentString,'post.jsx')  
+      
    }
     
    const handleSubmit = async(e) =>{
@@ -46,7 +46,7 @@ const Post = ({data}) => {
          commentedUser: user.firstname+' '+ user.lastname,
          time:Date()
       }
-      console.log(comment,'hei handlesubmit postjsx');
+      
       dispatch(addComment(data._id,comment))
       setOpen(false)
       
@@ -73,7 +73,7 @@ const Post = ({data}) => {
      
      {open &&
       data.comments?.map((com)=>{
-         console.log(com);
+         
          return (
             <div>
         <span><b>{com.commentedUser}</b></span>

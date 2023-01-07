@@ -18,7 +18,7 @@ const Posts = () => {
     dispatch(getTimelinePosts(user._id))
 
   },[])
-  console.log(JSON.stringify(posts),'posts.jsx')
+  
   if(!posts) return "no posts";
   if(params.id) posts = posts.filter((post)=> post.userId === params.id)
   return (

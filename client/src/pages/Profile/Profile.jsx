@@ -11,7 +11,7 @@ const Profile = () => {
 
     const {user} = useSelector((state)=>state.authReducer.authData)
     const person = useSelector((state)=>state.userReducer.userData)
-    console.log(user,'profilecard.jsx')
+    
     // const [person,setPerson] = useState({})
     // const dispatch = useDispatch()
     const params = useParams()
@@ -27,7 +27,7 @@ const Profile = () => {
         
     // },[])
     // console.log(profileUser,'profilecard.jsx 1')
-    console.log(person,'profilecard.jsx 2');
+    
 
   return (
     <div className="Profile">

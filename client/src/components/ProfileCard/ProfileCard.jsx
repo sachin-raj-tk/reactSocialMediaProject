@@ -13,7 +13,7 @@ const ProfileCard = ({location,person}) => {
     const setUser=()=>{
         dispatch(getUser(user._id))
     }
-    console.log(person,'profilec');
+    
   return (
     <div className="ProfileCard">
         <div className="ProfileImages">
