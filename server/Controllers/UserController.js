@@ -167,3 +167,15 @@ export const unfollowUser = async(req,res)=>{
   }
 }
 
+
+
+// implementing search data
+
+
+export const getUserData = async(req,res)=>{
+  const {data} = req.body
+  console.log(data)
+  const peopleData = await UserModel.find({"firstname":new RegExp(data,'i')})
+  res.json(peopleData.slice(0, 10))
+  console.log(peopleData,'hello from getuserdata')
+}
