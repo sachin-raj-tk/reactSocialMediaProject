@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { userChats } from '../../api/ChatRequest'
+import { createChats, userChats } from '../../api/ChatRequest'
 import Conversation from '../../components/Conversation/Conversation'
 import LogoSearch from '../../components/LogoSearch/LogoSearch'
 import './Chat.css'
@@ -18,13 +18,14 @@ const Chat = () => {
     const { user } = useSelector((state) => state.authReducer.authData)
     console.log(user)
     const [chats, setChats] = useState([])
+    const [newUser,setNewUser] = useState(null)
     const [currentChat,setCurrentChat] = useState(null)
     const [onlineUsers,setOnlineUsers] = useState([])
     const [sendMessage,setSendMessage] = useState(null)
     const [receiveMessage,setReceiveMessage] = useState(null)
     const socket = useRef()
     
-
+    console.log(newUser,'chat.jsx newuser')
 
     //send message to socket server
     useEffect(() => {
@@ -33,8 +34,9 @@ const Chat = () => {
        }
     },[sendMessage])
     
-
     
+
+   
 
     useEffect(() => {
       socket.current = io('http://localhost:8800')
@@ -44,6 +46,16 @@ const Chat = () => {
         
       })
     },[user])
+
+    useEffect(()=>{
+        const createCht=async()=>{
+        if(newUser !== null){
+          await createChats(user._id,newUser._id)
+          
+        }
+        }
+        createCht()
+    },[newUser])
 
     // receive message from socket server
     useEffect(()=>{
@@ -83,7 +95,7 @@ const Chat = () => {
         <div className="Chat">
             {/* Left Side */}
             <div className="Left-side-chat">
-                <LogoSearch />
+                <LogoSearch setNewUser={setNewUser}/>
                 <div className="Chat-container">
 
                     <h2>Chats</h2>
