@@ -35,7 +35,7 @@ const LogoSearch = ({setNewUser}) => {
       </>
       ))}
     
-    <p>Hello</p>
+    
   </div>
   </div>
     )
