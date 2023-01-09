@@ -169,7 +169,7 @@ export const unfollowUser = async(req,res)=>{
 
 
 
-// implementing search data
+// search user
 
 
 export const getUserData = async(req,res)=>{

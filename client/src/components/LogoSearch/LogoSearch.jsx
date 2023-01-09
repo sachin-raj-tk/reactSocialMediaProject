@@ -4,9 +4,10 @@ import Logo from '../../img/logo.png'
 import {UilSearch} from '@iconscout/react-unicons'
 import { getUserData } from '../../api/UserRequest'
 
-const LogoSearch = () => {
+const LogoSearch = ({setNewUser}) => {
   const [query, setQuery] = useState("");
   const [data, setData] = useState([]);
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,7 +28,12 @@ const LogoSearch = () => {
         </div>
     </div>
     <div class="dropdown-content">
-      {data.map((person)=>(<p>{person.firstname}</p>))}
+      {data.map((person)=>(
+        <>
+      <p onClick={()=>setNewUser(person)} style={{cursor:"pointer"}}>{person.firstname}</p>
+      <hr />
+      </>
+      ))}
     
     <p>Hello</p>
   </div>
