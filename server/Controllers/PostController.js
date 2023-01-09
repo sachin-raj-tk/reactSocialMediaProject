@@ -134,3 +134,14 @@ export const commentPost = async(req,res) =>{
     const commentData = await post.updateOne({$push:{comments:comment}})
     console.log(commentData);
 }
+
+
+// delete a comment
+
+export const deleteComment = async(req,res)=>{
+    const {commentId} = req.body
+    console.log(commentId,'hei')
+    const post = await PostModel.findById(req.params.id)
+    console.log(post)
+    const removeComment = await post.updateOne({$pull:{comments:{_id:commentId}}})
+}

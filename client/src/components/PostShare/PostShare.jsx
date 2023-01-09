@@ -65,7 +65,7 @@ const PostShare = () => {
                         <UilScenery />
                         Photo
                     </div>
-                    <div className="option" style={{color: "var(--video)"}}>
+                    {/* <div className="option" style={{color: "var(--video)"}}>
                         <UilPlayCircle />
                         Video
                     </div>
@@ -76,7 +76,7 @@ const PostShare = () => {
                     <div className="option" style={{color: "var(--schedule)"}}>
                         <UilSchedule />
                         Schedule
-                    </div>
+                    </div> */}
                     <button className="button ps-button" onClick={handleSubmit} disabled={loading}>{loading?"uploading":"Share"}</button>
                     <div style={{display:"none"}} onChange={onImageChange}>
                         <input type="file" name='myImage' ref={imageRef} />

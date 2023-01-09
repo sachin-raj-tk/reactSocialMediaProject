@@ -28,6 +28,17 @@ export const addComment=(id,comment) => async(dispatch)=>{
     }
 }
 
+export const deleteComment=(postId,commentId)=>async(dispatch)=>{
+    dispatch({type:"COMMENT_DEL_START"})
+    try {
+        dispatch({type:"COMMENT_DEL_SUCCESS",data:commentId,id:postId})
+        await PostApi.deleteComment(postId,commentId)
+    } catch (error) {
+        dispatch({type:"COMMENT_DEL_ERROR"})
+        console.log(error)
+    }
+}
+
 export const deletePost=(id,currentUser)=> async(dispatch)=>{
     dispatch({type:"DELETE_STARTED"})
     try {

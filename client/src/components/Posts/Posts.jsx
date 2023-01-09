@@ -12,7 +12,7 @@ const Posts = () => {
   
   let {posts,loading} = useSelector((state)=>state.postReducer)
   const postReducer = useSelector((state)=>state.postReducer)
-  // cons ole.log(JSON.stringify(postReducer),'posts.jsx')
+  console.log(JSON.stringify(postReducer),'posts.jsx')
   const params = useParams()
   useEffect(()=>{
     dispatch(getTimelinePosts(user._id))

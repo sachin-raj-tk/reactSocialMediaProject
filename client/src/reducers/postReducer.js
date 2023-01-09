@@ -21,6 +21,7 @@ const postReducer = (
     state = { posts: [], loading: false, error: false, uploading: false },
     action,
   ) => {
+    
     switch (action.type) {
     case "UPLOAD_START":
       return { ...state, uploading: true, error: false };
@@ -52,6 +53,12 @@ const postReducer = (
       return{...state,posts:state.posts.filter((post)=>post._id !== action.id), loading:false,error: false}
     case "DELETE_FAIL":
       return{...state, loading:false, error:true}
+    case "COMMENT_DEL_START":
+      return{...state,loading:true,error:false}
+    case "COMMENT_DEL_SUCCESS":
+      return{...state,loading:false,error:false}
+    case "COMMENT_DEL_ERROR":
+      return{...state,loading:false,error:true}
     default:
       return state;
     }

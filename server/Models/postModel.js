@@ -20,6 +20,10 @@ const postSchema = mongoose.Schema({
         time:{
             type: Date,
             required: true
+        },
+        user:{
+            type:String,
+            required:true
         }
     }]
 },{

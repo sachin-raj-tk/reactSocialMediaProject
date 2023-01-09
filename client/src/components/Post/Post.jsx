@@ -13,6 +13,9 @@ import { addComment } from '../../actions/postAction'
 import PostDeleteModal from '../PostDeleteModal/PostDeleteModal.jsx'
 import { getUser } from '../../api/UserRequest'
 import { format } from "timeago.js"
+import DeleteComment from '../DeleteComment/DeleteComment'
+import commentDelete from "../../img/commentDelete.png"
+
 
 
 
@@ -24,6 +27,7 @@ const Post = ({ data }) => {
    const [likes, setLikes] = useState(data.likes.length)
    const [postMan, setPostMan] = useState()
    const [modalOpen, setModalOpen] = useState(false)
+   const [showModal,setShowModal] = useState(false)
    const [open, setOpen] = useState(false)
    const [commentString, setCommentString] = useState("")
    useEffect(() => {
@@ -54,7 +58,8 @@ const Post = ({ data }) => {
       const comment = {
          comment: commentString,
          commentedUser: user.firstname + ' ' + user.lastname,
-         time: Date()
+         time: Date(),
+         user:user._id
       }
 
       dispatch(addComment(data._id, comment))
@@ -81,6 +86,7 @@ const Post = ({ data }) => {
          <div className="detail">
             <span><b>{postMan}</b> </span>
             <span>{data.desc}</span>
+            
             <hr />
          </div>
 
@@ -92,9 +98,17 @@ const Post = ({ data }) => {
                      <span><b>{com.commentedUser}</b></span>
 
                      <span> {com.comment}</span>
+                     {com.user===user._id  &&
+                     <>
+                     <img src={commentDelete} style={{width:"20px",height:"20px",marginLeft:"20px",cursor:"pointer"}}  onClick={()=>setShowModal((prev)=>!prev)} alt="" />
+                     
+                     <DeleteComment showModal={showModal} setShowModal={setShowModal} postId={data._id} commentId={com._id}  />
+                     </>
+                     }
                      <div>
-                        <span >{format(com.time)}</span>
+                        <span style={{paddingRight:"10px"}}>{format(com.time)}</span>
                      </div>
+                        
                   </div>
                )
             })
