@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { userChats } from '../../api/ChatRequest'
+import { createChats, userChats } from '../../api/ChatRequest'
 import Conversation from '../../components/Conversation/Conversation'
 import LogoSearch from '../../components/LogoSearch/LogoSearch'
 import './Chat.css'
@@ -46,6 +46,16 @@ const Chat = () => {
         
       })
     },[user])
+
+    useEffect(()=>{
+        const createCht=async()=>{
+        if(newUser !== null){
+          await createChats(user._id,newUser._id)
+          
+        }
+        }
+        createCht()
+    },[newUser])
 
     // receive message from socket server
     useEffect(()=>{
