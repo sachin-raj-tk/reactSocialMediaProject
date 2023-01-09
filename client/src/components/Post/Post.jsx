@@ -13,7 +13,7 @@ import { addComment } from '../../actions/postAction'
 import PostDeleteModal from '../PostDeleteModal/PostDeleteModal.jsx'
 import { getUser } from '../../api/UserRequest'
 import { format } from "timeago.js"
-import DeleteComment from '../DeleteComment/DeleteComment'
+import DeleteComment from '../DeleteComment/DeleteComment.jsx'
 import commentDelete from "../../img/commentDelete.png"
 
 
