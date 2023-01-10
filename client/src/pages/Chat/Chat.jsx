@@ -95,7 +95,7 @@ const Chat = () => {
         <div className="Chat">
             {/* Left Side */}
             <div className="Left-side-chat">
-                <LogoSearch setNewUser={setNewUser}/>
+                <LogoSearch setNewUser={setNewUser} place="chatPage"/>
                 <div className="Chat-container">
 
                     <h2>Chats</h2>

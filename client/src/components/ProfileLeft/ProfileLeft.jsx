@@ -12,7 +12,7 @@ const ProfileLeft = () => {
   return (
    <div className="ProfileSid">
 
-    <LogoSearch/>
+    <LogoSearch  place="homeSide"/>
     <InfoCard/>
         { params.id !== user._id &&
         <span>
