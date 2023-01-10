@@ -5,29 +5,30 @@ import { Link } from 'react-router-dom'
 import { getTimelinePosts } from '../../actions/postAction'
 import { followUser, getUser, unFollowUser } from '../../actions/userAction'
 
-const User = ({person,key,list}) => {
-    const dispatch = useDispatch()
-    const {user} =useSelector((state)=>state.authReducer.authData)
-    const [following, setFollowing] = useState(person.followers.includes(user._id))
-    const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
-    const handleFollow = ()=>{
-       following?
-       dispatch(unFollowUser(person._id,user)):
-       dispatch(followUser(person._id,user));
-       dispatch(getTimelinePosts(user._id))
-       setFollowing((prev)=>!prev)
-      
+const User = ({person,list}) => {
+  const dispatch = useDispatch()
+  const {user} =useSelector((state)=>state.authReducer.authData)
+  const [following, setFollowing] = useState(person.followers.includes(user._id))
+  const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
+  const handleFollow = ()=>{
+    following?
+    dispatch(unFollowUser(person._id,user)):
+    dispatch(followUser(person._id,user));
+    dispatch(getTimelinePosts(user._id))
+    setFollowing((prev)=>!prev)
+    
+  }
+  const setUser = ()=>{
+    dispatch(getUser(person._id))
+    
+  }
+  useEffect(()=>{
+    const followingStatus=()=>{
+      list === "people"?setFollowing(false):person.followers.includes(user._id) || list === "followingPeople"?setFollowing(true):setFollowing(false);
     }
-    const setUser = ()=>{
-      dispatch(getUser(person._id))
-      
-    }
-    useEffect(()=>{
-      const followingStatus=()=>{
-        list === "people"?setFollowing(false):person.followers.includes(user._id) || list === "followingPeople"?setFollowing(true):setFollowing(false);
-      }
-      followingStatus()
-    },[user])
+    followingStatus()
+  },[user])
+  
   return (
     <div className="follower">
               <div>
@@ -37,6 +38,7 @@ const User = ({person,key,list}) => {
                 {person.firstname}
                 </Link>
                 <span>{person.username.split('.',1)}</span>
+                
                 </div>
                 
               </div>

@@ -49,3 +49,8 @@
     cursor: pointer;
     background: transparent;
 }
+
+.FollowersCard>hr{
+    width: 99%;
+    border: 1px solid var(--hrColor);
+}

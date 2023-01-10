@@ -11,6 +11,7 @@ const LogoSearch = ({setNewUser,place}) => {
   const [query, setQuery] = useState("");
   const [data, setData] = useState([]);
   const dispatch = useDispatch()
+  
   // const [user,setUser] = useState(null)
   // useEffect(()=>{
   //   const fetchUser=async()=>{

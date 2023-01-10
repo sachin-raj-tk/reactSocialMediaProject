@@ -28,12 +28,14 @@ const RightSide = () => {
           <img src={Comment} alt="" />
         </Link>
       </div>
-      <TrendCard />
+      {/* <TrendCard /> */}
+      
+      {/* <ShareModal modalOpened={modalOpened} setModalOpened={setModalOpened} /> */}
+      <FollowersCard locality="hello" />
       <button className="button r-button" onClick={handleLogOut}>
       Logout
       </button>
-      {/* <ShareModal modalOpened={modalOpened} setModalOpened={setModalOpened} /> */}
-      <FollowersCard locality="hello" />
+      
     </div>
   )
 }
