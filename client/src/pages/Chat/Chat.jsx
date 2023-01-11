@@ -2,8 +2,8 @@ import React, { useRef } from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { createChats, userChats } from '../../api/ChatRequest'
+import { Link, useLocation } from 'react-router-dom'
+import { createChats, getThisChat, userChats } from '../../api/ChatRequest'
 import Conversation from '../../components/Conversation/Conversation'
 import LogoSearch from '../../components/LogoSearch/LogoSearch'
 import './Chat.css'
@@ -16,13 +16,16 @@ import {io} from 'socket.io-client'
 
 const Chat = () => {
     const { user } = useSelector((state) => state.authReducer.authData)
-    console.log(user)
+    const location = useLocation()
+    const newUserfromProfileMessageButton = location?.state?.data
+    console.log(newUserfromProfileMessageButton,'checking weathre it is coming')
     const [chats, setChats] = useState([])
     const [newUser,setNewUser] = useState(null)
     const [currentChat,setCurrentChat] = useState(null)
     const [onlineUsers,setOnlineUsers] = useState([])
     const [sendMessage,setSendMessage] = useState(null)
     const [receiveMessage,setReceiveMessage] = useState(null)
+    const [changeChat,setChangeChat] = useState(false) 
     const socket = useRef()
     
     console.log(newUser,'chat.jsx newuser')
@@ -49,8 +52,9 @@ const Chat = () => {
 
     useEffect(()=>{
         const createCht=async()=>{
-        if(newUser !== null){
+        if(newUser !== null && user._id !== newUser._id){
           await createChats(user._id,newUser._id)
+          
           
         }
         }
@@ -76,7 +80,21 @@ const Chat = () => {
             }
         }
         getChats()
-    }, [user])
+    }, [user,newUserfromProfileMessageButton,newUser,changeChat])
+    
+
+//   create new chat when clicked message from profile page of another user
+    useEffect(()=>{
+        const changeNewUser = async() =>{
+         setNewUser(newUserfromProfileMessageButton)
+         console.log(newUserfromProfileMessageButton,'hai from changenew user chat.jsx')
+         const setThisAscurrentChat = await getThisChat(newUserfromProfileMessageButton._id,user._id)
+         setCurrentChat(setThisAscurrentChat.data)
+         if(setThisAscurrentChat){setChangeChat(true)}
+         console.log(setThisAscurrentChat,'from chat.jsx setthisas current chat');
+        }
+        changeNewUser() 
+     },[newUserfromProfileMessageButton,chats])
 
     
     const checkOnlineStatus = (chat) => {

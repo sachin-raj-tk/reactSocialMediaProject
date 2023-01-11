@@ -24,7 +24,7 @@ const User = ({person,list}) => {
   }
   useEffect(()=>{
     const followingStatus=()=>{
-      list === "people"?setFollowing(false):person.followers.includes(user._id) || list === "followingPeople"?setFollowing(true):setFollowing(false);
+      list === "people"?setFollowing(false):user.following.includes(person._id) || list === "followingPeople"?setFollowing(true):setFollowing(false);
     }
     followingStatus()
   },[user])

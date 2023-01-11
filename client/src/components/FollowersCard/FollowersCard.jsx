@@ -1,6 +1,6 @@
 import React from 'react'
 import './FollowersCard.css'
-import {Followers} from '../../Data/FollowersData'
+
 import User from '../User/User'
 import { useEffect } from 'react'
 import { useState } from 'react'
@@ -76,13 +76,13 @@ const FollowersCard = ({locality}) => {
         <h3>People you may know</h3>
          
       </u>
-        {currentPersonsList.map((person)=>{
-          if(person._id !== user._id && !user.following.includes(person._id) && !user.followers.includes(person._id)){
-          return(
+        {currentPersonsList.map((person)=>
+          
+          (
             <User person = {person}  list="people"/>
           )
-        }
-        })}
+        
+        )}
     <Pagination peoplePerPage={personsPerPage} totalPersons={personsArray.length} paginate={personsPaginate}/>
     </div>
     )
@@ -92,16 +92,16 @@ const FollowersCard = ({locality}) => {
       
         <hr />
         <u><h3>Following</h3> </u>
-        {currentFollowingList.map((person)=>{
-          if(user.following.includes(person._id)){
-          return(
+        {currentFollowingList.map((person)=>
+          
+          (
             
             <User person = {person}  list="followingPeople"/>
             
             
           )
-        }
-        })}
+        
+        )}
         <Pagination peoplePerPage={personsPerPage} totalPersons={followingArray.length} paginate={followingPaginate}/>
         
 
@@ -110,13 +110,13 @@ const FollowersCard = ({locality}) => {
         <h3>Followers</h3>
 
         </u>
-        {currentFollowersList.map((person)=>{
-          if(user.followers.includes(person._id)){
-            return(
+        {currentFollowersList.map((person)=>
+          
+            (
               <User person = {person}  list="followersPeople"/>
               )
-            }
-          })}
+            
+          )}
           <Pagination peoplePerPage={personsPerPage} totalPersons={followersArray.length} paginate={followersPaginate}/>
          <hr />
     </div>

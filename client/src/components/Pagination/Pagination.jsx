@@ -8,6 +8,7 @@ const Pagination = ({peoplePerPage,totalPersons,paginate}) => {
          pageNumbers.push(i)
     }
     console.log(pageNumbers,'hai pagination')
+    
 
   return (
     <nav style={{display:"flex",flexDirection:"row",alignSelf:"center",gap:"5px"}}>
