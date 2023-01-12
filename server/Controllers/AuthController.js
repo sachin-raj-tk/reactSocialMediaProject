@@ -26,10 +26,12 @@ export const registerUser = async(req,res)=>{
      const user = await newUser.save()
      const result = await sendOtpVerificationEmail(user,res)
      console.log(result,'register user')
-     const token = jwt.sign({
-        username : user.username, id:user._id
-     },process.env.JWT_KEY,{expiresIn: "1h"})
-     res.status(200).json({user,token})
+
+     res.status(200).json({
+        status:"PENDING",
+        message:"User email verification pending"
+    })
+     
    } catch (error) {
      res.status(500).json({message:error.message})
    }
@@ -97,10 +99,11 @@ export const verifyotp = async(req,res) =>{
                         const user = await UserModel.findById({_id:userId})
                         console.log(user)
                         await OtpModel.deleteMany({userId});
-                        res.status(200).json({
-                            status:"verified",
-                            message:"User email verified successfully"
-                        })
+                        const token = jwt.sign({
+                            username : user.username, id:user._id
+                         },process.env.JWT_KEY,{expiresIn: "1h"})
+                         res.status(200).json({user,token})
+                        
                     }
                 }
             }
