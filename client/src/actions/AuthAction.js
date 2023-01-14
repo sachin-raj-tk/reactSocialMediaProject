@@ -13,10 +13,12 @@ export const logIn = (formData) => async(dispatch) => {
 }
 
 
-export const signUp = (formData) => async(dispatch) => {
+export const verifyotp = (userId,otp) => async(dispatch) => {
+    console.log(otp,'ith authaction verify otp ane');
     dispatch({type:"AUTH_START"})
     try {
-        const {data} = await AuthApi.signUp(formData)
+        const {data} = await AuthApi.verifyotp(userId,otp)
+        console.log(data,'auth data ethiyo authacion signupil')
         dispatch({type:"AUTH_SUCCESS", data: data})
         
     } catch (error) {

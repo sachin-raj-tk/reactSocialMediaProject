@@ -3,7 +3,9 @@ import './Auth.css'
 import Logo from '../../img/logo.png'
 import { useState } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import { logIn, signUp } from '../../actions/AuthAction.js'
+import { logIn } from '../../actions/AuthAction.js'
+import { signUp } from '../../api/AuthRequest'
+import { useNavigate } from 'react-router-dom'
 
 
 const Auth = () => {
@@ -11,7 +13,7 @@ const Auth = () => {
   const loading = useSelector((state)=>state.authReducer.loading)
   const [isSignUp, setSignUp] = useState(true)
   console.log(loading);
-  
+  const navigate = useNavigate()
   const [data, setData] = useState({ firstname: "", lastname: "", username: "", password: "", confirmpass: "" })
   const [confirmPass, setConfirmPass] = useState(true)
   const handleChange = (e) => {
@@ -19,11 +21,22 @@ const Auth = () => {
   }
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault()
 
     if (isSignUp) {
-      data.password === data.confirmpass ? dispatch(signUp(data)) : setConfirmPass(false)
+      if(data.password === data.confirmpass){
+       const response = await signUp(data)
+       console.log(response.data.data,'evide response');
+       navigate("/otpverification",{
+        state:{
+          registerationData: response.data.data
+        }
+       })
+      }else{
+        setConfirmPass(false)
+      }
+      // data.password === data.confirmpass ? await signUp(data) : setConfirmPass(false)
     }else{
       dispatch(logIn(data))
     }
